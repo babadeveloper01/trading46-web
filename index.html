@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading 46 - Official Smart Investment & Daily Earning Platform</title>
+    <style>
+        /* ==========================================================
+           1. CSS RESET & GLOBAL VARIABLES
+           ================================================---------- */
+        :root {
+            --bg-primary: #0F172A;
+            --bg-secondary: #1E293B;
+            --bg-card: #162032;
+            --accent-gold: #F59E0B;
+            --accent-blue: #2563EB;
+            --accent-green: #22C55E;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --border-color: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ==========================================================
+           2. HEADER & NAVIGATION BAR
+           ================================================---------- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 8%;
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo-container img {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid var(--accent-gold);
+            box-shadow: 0 0 12px rgba(245, 158, 11, 0.4);
+        }
+
+        .logo-brand h1 {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--accent-gold);
+            letter-spacing: 1px;
+            line-height: 1.1;
+        }
+
+        .logo-brand span {
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 15px;
+            transition: 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-gold);
+        }
+
+        .nav-download-btn {
+            background: linear-gradient(135deg, var(--accent-blue), #1D4ED8);
+            color: white;
+            padding: 10px 22px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            transition: 0.3s;
+        }
+
+        .nav-download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.5);
+        }
+
+        /* ==========================================================
+           3. HERO SECTION WITH LIVE TICKER
+           ================================================---------- */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 80px 20px 50px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--accent-gold);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .hero h2 {
+            font-size: 46px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            color: #FFFFFF;
+            line-height: 1.2;
+        }
+
+        .hero h2 span {
+            color: var(--accent-gold);
+            text-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
+        }
+
+        .hero p {
+            font-size: 17px;
+            color: var(--text-muted);
+            margin-bottom: 35px;
+            max-width: 750px;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .download-btn-main {
+            background: linear-gradient(135deg, var(--accent-green), #16A34A);
+            color: white;
+            padding: 16px 38px;
+            font-size: 18px;
+            font-weight: 800;
+            border-radius: 14px;
+            text-decoration: none;
+            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+            transition: 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .download-btn-main:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.6);
+        }
+
+        .secondary-btn {
+            background-color: var(--bg-secondary);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 16px 28px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 14px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .secondary-btn:hover {
+            background-color: var(--border-color);
+        }
+
+        .app-meta-tags {
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .app-meta-tags span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* ==========================================================
+           4. LIVE SIMULATED TRADING GRAPH SECTION
+           ================================================---------- */
+        .ticker-section {
+            max-width: 900px;
+            margin: 20px auto 60px auto;
+            padding: 0 20px;
+        }
+
+        .ticker-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .ticker-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .ticker-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .live-dot {
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent-green);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent-green);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .ticker-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--accent-green);
+        }
+
+        canvas#cryptoChart {
+            width: 100%;
+            height: 180px;
+            background-color: var(--bg-primary);
+            border-radius: 12px;
+        }
+
+        /* ==========================================================
+           5. STATS COUNTER BAR
+           ================================================---------- */
+        .stats-bar {
+            background: linear-gradient(90deg, #162032, #1E293B, #162032);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 40px 20px;
+            margin-bottom: 60px;
+        }
+
+        .stats-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--accent-gold);
+            margin-bottom: 5px;
+        }
+
+        .stat-item p {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ==========================================================
+           6. INVESTMENT PLANS SECTION
+           ================================================---------- */
+        .container {
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 0 20px 80px 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: 34px;
+            font-weight: 900;
+            color: #FFFFFF;
+            margin-bottom: 12px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+            gap: 30px;
+        }
+
+        .plan-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 32px;
+            position: relative;
+            transition: 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .plan-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-gold);
+            box-shadow: 0 15px 35px rgba(245, 158, 11, 0.15);
+        }
+
+        .plan-card.featured {
+            border: 2px solid var(--accent-gold);
+            background: linear-gradient(180deg, var(--bg-secondary) 0%, #1c283f 100%);
+        }
+
+        .badge-popular {
+            position: absolute;
+            top: -14px;
+            right: 25px;
+            background: var(--accent-gold);
+            color: #000;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 5px 14px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .plan-header h3 {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .plan-card.basic .plan-header h3 { color: #38BDF8; }
+        .plan-card.silver .plan-header h3 { color: var(--accent-green); }
+        .plan-card.gold .plan-header h3 { color: var(--accent-gold); }
+
+        .plan-price {
+            font-size: 32px;
+            font-weight: 900;
+            color: #FFFFFF;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .plan-features li {
+            padding: 10px 0;
+            color: var(--text-muted);
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+
+        .plan-features li span {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .plan-btn {
+            display: block;
+            width: 100%;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            text-align: center;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .plan-card:hover .plan-btn {
+            background-color: var(--accent-blue);
+            border-color: var(--accent-blue);
+            color: white;
+        }
+
+        /* ==========================================================
+           7. PROFIT CALCULATOR SECTION
+           ================================================---------- */
+        .calculator-section {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 80px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            align-items: center;
+        }
+
+        .calc-inputs h3 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: #FFFFFF;
+        }
+
+        .calc-inputs p {
+            color: var(--text-muted);
+            font-size: 15px;
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .input-group select {
+            width: 100%;
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            color: white;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .calc-result-box {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .calc-result-box h4 {
+            font-size: 15px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .calc-result-box .total-payout {
+            font-size: 40px;
+            font-weight: 900;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+        }
+
+        .calc-result-box .net-profit {
+            font-size: 16px;
+            color: var(--accent-green);
+            font-weight: 700;
+            background: rgba(34, 197, 94, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        /* ==========================================================
+           8. APP FEATURES GRID SECTION
+           ================================================---------- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 80px;
+        }
+
+        .feature-box {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .feature-box:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .feature-box h4 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #FFFFFF;
+        }
+
+        .feature-box p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* ==========================================================
+           9. FAQ SECTION
+           ================================================---------- */
+        .faq-section {
+            margin-bottom: 80px;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            margin-bottom: 15px;
+            padding: 20px 25px;
+        }
+
+        .faq-item h4 {
+            font-size: 17px;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 8px;
+        }
+
+        .faq-item p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* ==========================================================
+           10. WHATSAPP SUPPORT BANNER & FOOTER
+           ================================================---------- */
+        .support-banner {
+            background: linear-gradient(135deg, #162032, #1E293B);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 50px 20px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .support-banner h3 {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 12px;
+            color: #FFFFFF;
+        }
+
+        .support-banner p {
+            color: var(--text-muted);
+            font-size: 16px;
+            margin-bottom: 25px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .whatsapp-action-btn {
+            background-color: #25D366;
+            color: white;
+            padding: 14px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            transition: 0.3s;
+        }
+
+        .whatsapp-action-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+        }
+
+        footer {
+            background-color: #090D16;
+            border-top: 1px solid var(--border-color);
+            padding: 40px 20px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        footer p {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==========================================
+       HEADER / NAVBAR
+       ========================================== -->
+    <header>
+        <div class="logo-container">
+            <!-- Aapki T46.png logo image -->
+            <img src="T46.png" alt="Trading 46 Logo">
+            <div class="logo-brand">
+                <h1>TRADING 46</h1>
+                <span>Official Portal</span>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#plans">Plans</a></li>
+                <li><a href="#calculator">Calculator</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+        </nav>
+        <a href="trading46.apk" download="Trading46.apk" class="nav-download-btn">📥 Download APK</a>
+    </header>
+
+    <!-- ==========================================
+       HERO SECTION
+       ========================================== -->
+    <section class="hero">
+        <div class="hero-badge">⭐ Trusted Pakistani Investment & Trading App</div>
+        <h2>Earn Daily Profits Securely with <span>Trading 46</span></h2>
+        <p>Aap bhi apne Android phone par Trading 46 app install karein. Daily ROI accumulation, secure Easypaisa/JazzCash deposits & withdrawals, aur referral rewards ke sath apni earning shuru karein!</p>
+        
+        <div class="hero-cta-group">
+            <!-- APK Download Link pointing to apk folder -->
+            <a href="trading46.apk" download="Trading46.apk" class="download-btn-main">
+                📥 Download Official APK (v1.0)
+            </a>
+            <a href="https://api.whatsapp.com/send?phone=923477437517&text=Hello%20Trading%2046%20Support,%20mujhe%20app%20ke%20bare%20mein%20information%20chahiye." target="_blank" class="secondary-btn">
+                💬 Live WhatsApp Help
+            </a>
+        </div>
+
+        <div class="app-meta-tags">
+            <span>🛡️ 100% Secure System</span>
+            <span>⚡ Instant Payouts</span>
+            <span>📱 Android 6.0+ Supported</span>
+        </div>
+    </section>
+
+    <!-- ==========================================
+       LIVE SIMULATED TICKER SECTION
+       ========================================== -->
+    <div class="ticker-section">
+        <div class="ticker-card">
+            <div class="ticker-header">
+                <div class="ticker-title">
+                    <div class="live-dot"></div>
+                    BTC / PKR Real-Time Arbitrage Feed
+                </div>
+                <div class="ticker-price" id="liveTickerPrice">PKR 214,850.40</div>
+            </div>
+            <canvas id="cryptoChart"></canvas>
+        </div>
+    </div>
+
+    <!-- ==========================================
+       STATS COUNTER BAR
+       ========================================== -->
+    <div class="stats-bar">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h3>15,000+</h3>
+                <p>Active Investors</p>
+            </div>
+            <div class="stat-item">
+                <h3>PKR 4.8M+</h3>
+                <p>Total Payouts Distributed</p>
+            </div>
+            <div class="stat-item">
+                <h3>60 Days</h3>
+                <p>Guaranteed Plan Cycle</p>
+            </div>
+            <div class="stat-item">
+                <h3>24/7</h3>
+                <p>Support & Approvals</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+       INVESTMENT PLANS SECTION
+       ========================================== -->
+    <div class="container" id="plans">
+        <div class="section-header">
+            <h2>Select Your Investment Plan</h2>
+            <p>Choose the right package to unlock your daily profit & box rewards.</p>
+        </div>
+
+        <div class="plans-grid">
+            <!-- Plan 1: Basic -->
+            <div class="plan-card basic">
+                <div class="plan-header">
+                    <h3>1. Basic Plan (Starter)</h3>
+                </div>
+                <div class="plan-price">PKR 700</div>
+                <ul class="plan-features">
+                    <li>Daily Earning: <span>PKR 50</span></li>
+                    <li>Referral Bonus: <span>PKR 140</span></li>
+                    <li>Plan Duration: <span>60 Days</span></li>
+                    <li>Total Return: <span>PKR 3,000</span></li>
+                    <li>Minimum Withdraw: <span>PKR 500</span></li>
+                </ul>
+                <a href="trading46.apk" download="Trading46.apk" class="plan-btn">Download App to Activate</a>
+            </div>
+
+            <!-- Plan 2: Silver (Featured) -->
+            <div class="plan-card silver featured">
+                <div class="badge-popular">Most Popular</div>
+                <div class="plan-header">
+                    <h3>2. Silver Plan (Standard)</h3>
+                </div>
+                <div class="plan-price">PKR 1,200</div>
+                <ul class="plan-features">
+                    <li>Daily Earning: <span>PKR 80</span></li>
+                    <li>Referral Bonus: <span>PKR 240</span></li>
+                    <li>Plan Duration: <span>60 Days</span></li>
+                    <li>Total Return: <span>PKR 4,800</span></li>
+                    <li>Minimum Withdraw: <span>PKR 500</span></li>
+                </ul>
+                <a href="trading46.apk" download="Trading46.apk" class="plan-btn" style="background-color: var(--accent-blue); color: white; border-color: var(--accent-blue);">Download App to Activate</a>
+            </div>
+
+            <!-- Plan 3: Gold -->
+            <div class="plan-card gold">
+                <div class="plan-header">
+                    <h3>3. Gold Plan (VIP)</h3>
+                </div>
+                <div class="plan-price">PKR 1,600</div>
+                <ul class="plan-features">
+                    <li>Daily Earning: <span>PKR 120</span></li>
+                    <li>Referral Bonus: <span>PKR 320</span></li>
+                    <li>Plan Duration: <span>60 Days</span></li>
+                    <li>Total Return: <span>PKR 7,200</span></li>
+                    <li>Minimum Withdraw: <span>PKR 500</span></li>
+                </ul>
+                <a href="trading46.apk" download="Trading46.apk" class="plan-btn">Download App to Activate</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+       PROFIT CALCULATOR SECTION
+       ========================================== -->
+    <div class="container" id="calculator">
+        <div class="calculator-section">
+            <div class="calc-grid">
+                <div class="calc-inputs">
+                    <h3>Investment Profit Calculator</h3>
+                    <p>Select your desired plan below to calculate exact daily profits and final return projections instantly.</p>
+                    
+                    <div class="input-group">
+                        <label for="calcPlanSelect">Choose Package:</label>
+                        <select id="calcPlanSelect" onchange="calculateEarnings()">
+                            <option value="700|50|3000">Basic Plan (Invest PKR 700)</option>
+                            <option value="1200|80|4800" selected>Silver Plan (Invest PKR 1,200)</option>
+                            <option value="1600|120|7200">Gold VIP Plan (Invest PKR 1,600)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="calc-result-box">
+                    <h4>Estimated Total Return</h4>
+                    <div class="total-payout" id="calcTotalReturn">PKR 4,800</div>
+                    <div class="net-profit" id="calcDailyProfit">Daily Earning: PKR 80 / day</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+       APP FEATURES SECTION
+       ========================================== -->
+    <div class="container" id="features">
+        <div class="section-header">
+            <h2>Why Choose Trading 46 App?</h2>
+            <p>Designed with robust security and automated financial logic.</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-box">
+                <div class="feature-icon">🔒</div>
+                <h4>Secure Firebase Backend</h4>
+                <p>All your account balances, withdrawals, and active plans are securely managed in real-time.</p>
+            </div>
+            <div class="feature-box">
+                <div class="feature-icon">👥</div>
+                <h4>Referral Growth Gate</h4>
+                <p>First withdrawal is secured with a 2-referral minimum rule to ensure organic community growth.</p>
+            </div>
+            <div class="feature-box">
+                <div class="feature-icon">💰</div>
+                <h4>Easypaisa & JazzCash</h4>
+                <p>Seamless local Pakistani mobile wallet deposits and manual quick payouts processing.</p>
+            </div>
+            <div class="feature-box">
+                <div class="feature-icon">🎁</div>
+                <h4>Daily Box Rewards</h4>
+                <p>Unlock surprise bonus boxes every day based on your active investment plan level.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+       FAQ SECTION
+       ========================================== -->
+    <div class="container faq-section" id="faq">
+        <div class="section-header">
+            <h2>Frequently Asked Questions</h2>
+        </div>
+        <div class="faq-container">
+            <div class="faq-item">
+                <h4>1. How can I download and install the app?</h4>
+                <p>Simply click the "Download Official APK" button on this website, save the file on your phone, and tap to install. Make sure to allow installation from unknown sources if prompted.</p>
+            </div>
+            <div class="faq-item">
+                <h4>2. What are the withdrawal conditions?</h4>
+                <p>Minimum withdrawal amount is PKR 500. For your first withdrawal, you need a minimum of 2 active referrals. After that, subsequent withdrawals require no referrals.</p>
+            </div>
+            <div class="faq-item">
+                <h4>3. How do I send payment for deposit activation?</h4>
+                <p>Send your plan amount to our official Admin JazzCash / EasyPaisa number (0347-7437517) and submit your Transaction ID (TrxID) inside the app deposit screen.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+       WHATSAPP SUPPORT BANNER
+       ========================================== -->
+    <div class="container">
+        <div class="support-banner">
+            <h3>Have Questions or Need Payment Approval?</h3>
+            <p>Our dedicated support team is available around the clock on WhatsApp to assist you with deposits, approvals, and troubleshooting.</p>
+            <a href="https://api.whatsapp.com/send?phone=923477437517&text=Hello%20Trading%2046%20Support,%20mujhe%20madad%20chahiye." target="_blank" class="whatsapp-action-btn">
+                💬 Chat with Support on WhatsApp
+            </a>
+        </div>
+    </div>
+
+    <!-- ==========================================
+       FOOTER
+       ========================================== -->
+    <footer>
+        <p>&copy; 2026 Trading 46. All Rights Reserved.</p>
+        <p style="color: #64748B; font-size: 13px;">Built for Android & Web Deployment under BABA DEVELOPER standards.</p>
+    </footer>
+
+    <!-- ==========================================
+       JAVASCRIPT FOR LIVE CHART & CALCULATOR
+       ========================================== -->
+    <script>
+        // Profit Calculator Logic
+        function calculateEarnings() {
+            const selectVal = document.getElementById('calcPlanSelect').value;
+            const parts = selectVal.split('|');
+            const daily = parts[1];
+            const total = parts[2];
+
+            document.getElementById('calcTotalReturn').innerText = "PKR " + Number(total).toLocaleString();
+            document.getElementById('calcDailyProfit').innerText = "Daily Earning: PKR " + daily + " / day";
+        }
+
+        // Live Simulated Candlestick / Line Ticker
+        const canvas = document.getElementById('cryptoChart');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = canvas.parentElement.clientWidth - 48;
+            canvas.height = 180;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        let price = 214850.40;
+        let points = [];
+        for(let i=0; i<40; i++) {
+            price += (Math.random() - 0.48) * 120;
+            points.push(price);
+        }
+
+        function drawChart() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // New price fluctuation
+            price += (Math.random() - 0.47) * 150;
+            points.shift();
+            points.push(price);
+
+            document.getElementById('liveTickerPrice').innerText = "PKR " + price.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+            let min = Math.min(...points);
+            let max = Math.max(...points);
+            let range = max - min || 1;
+            let stepX = canvas.width / (points.length - 1);
+
+            ctx.beginPath();
+            ctx.strokeStyle = '#22C55E';
+            ctx.lineWidth = 3;
+
+            for(let i=0; i<points.length; i++) {
+                let x = i * stepX;
+                let y = canvas.height - ((points[i] - min) / range) * (canvas.height - 40) - 20;
+                if(i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+
+            // Gradient Fill under line
+            ctx.lineTo(canvas.width, canvas.height);
+            ctx.lineTo(0, canvas.height);
+            ctx.fillStyle = 'rgba(34, 197, 94, 0.08)';
+            ctx.fill();
+        }
+
+        setInterval(drawChart, 1500);
+        drawChart();
+    </script>
+</body>
+</html>
